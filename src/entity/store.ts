@@ -1,13 +1,14 @@
 import {Column, Entity, PrimaryColumn} from 'typeorm'
 
-@Entity()
-export class store{
+@Entity({name: "stores"})
+export class Store{
+
     @PrimaryColumn()
     id: number;
 
     @Column()    
-    name: string ;
+    name: string;
 
     @Column()
-    adress:string;
+    adress: string;
 }

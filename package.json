@@ -1,10 +1,12 @@
 {
-  "name": "voucherManager",
+  "name": "vouchermanager",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@types/es6-shim": "^0.31.42",
     "express": "^4.17.1",
+    "node": "^16.6.1",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.36"

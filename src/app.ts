@@ -1,26 +1,29 @@
-import Express,{Application, Request, Response, } from 'express'
-import "reflect-metadata"
-import {createConnection} from 'typeorm'
-import {coupon} from "./entity/coupon";
-import {store} from "./entity/store";
+import express,{Application, Request, Response} from 'express';
+import "reflect-metadata";
+import {createConnection} from "typeorm";
+import { Coupon } from './entity/Coupon';
+import { Store } from './entity/Store';
+import { getRepository } from 'typeorm';
 
-const app : Application  = Express();
+const app : Application = express();
 
-createConnection()
-.then(connection => {
-    console.log('its ok')
-}).catch(error => console.log(error));
-
-app.get('/coupons',(req: Request, res:Response)=> {
+const connection = createConnection()
+.then(connection => {}).catch(error => console.log(error));
 
 
 
+app.get('/coupons',async function (req: Request, res:Response){
+    const coupons = await getRepository(Coupon).find();
+    return res.json(coupons);
 
-
-
-
-    res.send("nuestro primer aplicacion n")
 })
+
+
+
+
+
+
+
 
 app.listen(3000, () => console.log('servidor inicializado'));
 

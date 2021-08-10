@@ -1,7 +1,8 @@
 import {Column, Entity, PrimaryColumn} from 'typeorm'
 
-@Entity()
-export class coupon{
+@Entity({name: "coupons"})
+export class Coupon{
+    
     @Column()
     assigned_at: Date;
 
