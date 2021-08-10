@@ -1,14 +1,14 @@
-import {Column, Entity, PrimaryColumn} from 'typeorm'
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
 
 @Entity({name: "stores"})
 export class Store{
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn("uuid")
     id: number;
 
-    @Column()    
+    @Column("character varying")    
     name: string;
 
-    @Column()
-    adress: string;
+    @Column("character varying")
+    address: string;
 }

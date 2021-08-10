@@ -4,20 +4,23 @@ import {createConnection} from "typeorm";
 import { Coupon } from './entity/Coupon';
 import { Store } from './entity/Store';
 import { getRepository } from 'typeorm';
+import entityRoutes from './routes/entity.routes'
+import morgan from 'morgan';
+import cors from 'cors'
 
-const app : Application = express();
 
-const connection = createConnection()
+const app : Application = express()
+
+createConnection()
 .then(connection => {}).catch(error => console.log(error));
 
+//middlewares
+app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
 
-
-app.get('/coupons',async function (req: Request, res:Response){
-    const coupons = await getRepository(Coupon).find();
-    return res.json(coupons);
-
-})
-
+//routes
+app.use(entityRoutes);
 
 
 

@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryColumn} from 'typeorm'
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
 
 @Entity({name: "coupons"})
 export class Coupon{
@@ -14,7 +14,7 @@ export class Coupon{
     @Column()
     customer_email:string;
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id:number;
 
     @Column()
