@@ -2,11 +2,10 @@
     "type": "postgres",
     "host": "localhost",
     "port": 5432,
-    "username": "postgres",
-    "password": "2301",
-    "database": "DBvoucherManager",
+    "username": "root",
+    "password": "admin",
+    "database": "test",
     "schema": "public",
-    "entities": ["dist/entity/**/*.js"],
+    "entities": entity/*.js,modules/**/entity/*.js
     "synchronize": true
-
 }
