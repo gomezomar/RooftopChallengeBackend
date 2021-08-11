@@ -3,7 +3,7 @@ import express from 'express'
 import { getRepository } from 'typeorm';
 import { Coupon } from '../entity/Coupon';
 import { Store } from '../entity/Store';
-import { create } from 'domain';
+
 
 
 export const getCoupon = async (req: Request, res: Response): Promise<Response> =>{
@@ -92,7 +92,24 @@ export const postCoupon = async (req: Request, res: Response): Promise<Response>
 
 
 
+export const postStore = async (req: Request, res: Response): Promise<Response> =>{
+    const name = req.body.name.length
+    const address = req.body.address.length
+    console.log(name)
 
+    const ziseName : number = name.length 
+    const ziseAddress : number= address.length 
+    console.log(address)
+
+    if( ziseName == 0 || ziseAddress== 0 ) {
+        return res.status(422).send('unprocessable code');    
+    }else{
+        const newStore = getRepository(Store).create(req.body);
+        const result= await getRepository(Store).save(newStore);
+        return res.status(200).json(result)
+        
+    }
+};
 
 
             
