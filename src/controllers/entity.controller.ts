@@ -52,12 +52,12 @@ export const getStores = async (req: Request, res:Response): Promise<Response> =
             let nf=ni+10;
             let results = JSON.stringify(stores.slice(ni,nf))
                 
-            return res.status(200).send('number of stores available:'+ numStores +' <br/>page store: '+ page + ' <br/> '+ results)
+            return res.status(200).send('number of stores available:'+ numStores +' page store: '+ page + '  '+ results)
         }
     };
 
     const results = JSON.stringify(stores.slice(0,10))
-    return res.status(200).send('number of stores available:'+ numStores +' <br/>page store:'+ '1' + ' <br/> '+ results)
+    return res.status(200).send('number of stores available:'+ numStores +' page store:'+ '1' + '  '+ results)
 };
 
 

@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "f2c9a3b4-0dab-4124-9464-8b1cafe65a7b",
+		"name": "examplesRequest",
+		"description": "Peticiones de ejemplo para utilizar API REST desarrollada",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Coupons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/coupons?email=rewdiz@sugrizag.ps&code=ONVLBHQY",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coupons"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "rewdiz@sugrizag.ps"
+						},
+						{
+							"key": "code",
+							"value": "ONVLBHQY"
+						}
+					]
+				},
+				"description": "Permite consultar si un cupon corresponde a un determinado email,funciona cargando en los query params los valores de asignacion para email y code, con estos parametros se hace una busqueda en base de datos. Retorna codigo de estado 200 en caso de encontrarlo, caso contrario devolver 404."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Stores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "permite hacer una peticion para ver todas las tiendas disponibles, estas seran mostradas de 10 por cada pagina, mediante query params se puede enviar el numero de pagina que se desea ver.\r\n\r\nTambien se puede requerir una tienda en especifico para esto se debe enviar mediante el query param una variable name con el nombre de la tienda que se busca."
+			},
+			"response": []
+		},
+		{
+			"name": "Post Coupons",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"code\" : \"23D45FR6\",\r\n\t\"expires_at\": \"2023-05-14 12:45:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/coupons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coupons"
+					]
+				},
+				"description": "Permite crear un nuevo cupón mediante el método post, para probarlo se debe crear un json en el body de la siguiente manera:\r\n{ \r\n\t\"code\": \"XXXXXXXX\",\r\n\t\"expires_at\": \"yyyy-mm-dd hh:mm:ss\"\r\n}\r\nLos valores de code deben ser SOLO LETRAS y NUMEROS y expeires_at debe ser una fecha escrita de la forma en la que se describe.\r\nEn caso de crearse correctamente mostrar un codigo 201\r\nEn caso de error enviar Código 422 y los errores de la validación\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Stores",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\t\"name\": \" Caracolas amarillas\",\r\n\t\"address\": \"Av. Bolivar  \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/stores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"stores"
+					]
+				},
+				"description": "Permite dar de alta una nueva tienda mediante el método post, para ejecutarlo se debe crear un json en el body de la siguiente manera:\r\n{ \r\n\t\"name\": \" \",\r\n\t\"address\": \" \"\r\n}\r\nEn name debe ingresar el nombre exacto de la tienda que deseas crear y en \r\naddress debe ingresar la dirección de la tienda que estas creando\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Coupons",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Permite asignar un cupon existente a un mail usando método patch, para probarlo se debe crear un json en el body de la siguiente manera:\r\n{ \r\n}\r\n\r\nEn caso de crearse correctamente mostrar un codigo 201\r\nEn caso de error enviar Código 422 y los errores de la validación\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Coupon",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/coupons/21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coupons",
+						"21"
+					]
+				},
+				"description": "Lo utilizamos para dar de baja un cupón a pasándole el id como parámetro en la url, solo podemos borrar un cupón si no ha sido asignado a un cliente \r\nhttp://localhost:3000/coupons/:id\r\nSi se borró devolver Código 201\r\nSi el Código no es valido o no existe, devolver 404\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Store",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/coupons/21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"coupons",
+						"21"
+					]
+				},
+				"description": "Lo utilizamos para eliminar una tienda pasándole el id .\r\n\r\nhttp://localhost:3000/stores/:id\r\nSi se borró devolver Código 201\r\nSi el Código no es valido o no existe, devolver 404\r\n"
+			},
+			"response": []
+		}
+	]
+}
