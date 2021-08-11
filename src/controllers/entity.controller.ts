@@ -3,6 +3,7 @@ import express from 'express'
 import { getRepository } from 'typeorm';
 import { Coupon } from '../entity/Coupon';
 import { Store } from '../entity/Store';
+import { create } from 'domain';
 
 
 export const getCoupon = async (req: Request, res: Response): Promise<Response> =>{
@@ -26,6 +27,7 @@ export const getCoupon = async (req: Request, res: Response): Promise<Response> 
     }
 };
 
+
 export const getStores = async (req: Request, res:Response): Promise<Response> =>{
     let page: number = Number(req.query.page) 
     console.log(page)
@@ -46,7 +48,6 @@ export const getStores = async (req: Request, res:Response): Promise<Response> =
         }else{
             return res.status(404).send('store not found');
         }
-        
     }else{
         if (page != null && page >0) {
             let ni= page*10;
@@ -61,7 +62,39 @@ export const getStores = async (req: Request, res:Response): Promise<Response> =
         let results = JSON.stringify(stores.slice(0,10))
         
         return res.status(200).send('number of stores available:'+ numStores +'<br/>page store:'+ '1' + '<br/>'+ results)
-}
+};
+
+
+export const postCoupon = async (req: Request, res: Response): Promise<Response> =>{
+    const expires_at = req.body.expires_at
+    const code = req.body.code
+    console.log(code)
+
+    const num : number= code.length  
+    console.log(num)
+    if(expires_at == null) {
+        return res.status(422).send('unprocessable code');    
+    }
+    if (num == 8) {
+        const validator = new RegExp('^[A-Z0-9]+$','i')
+        if (!validator.test(code)) {
+            return res.status(422).send('unprocessable code'); 
+        }else{
+           const newCoupon = getRepository(Coupon).create(req.body);
+           const result= await getRepository(Coupon).save(newCoupon);
+           return res.status(200).json(result)
+        }
+    } else {
+        return res.status(422).send('unprocessable code');
+    }
+};
+
+
+
+
+
+
+
             
             
 
