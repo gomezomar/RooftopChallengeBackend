@@ -104,22 +104,19 @@ export const createStore = async (req: Request, res: Response): Promise<Response
 
 
 export const assignCoupon = async (req: Request, res: Response): Promise<Response> =>{
+    
     const customer_email = req.body.customer_email
-    console.log(customer_email)
-    //const validator = new RegExp('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$')
-
+        
     if (!(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(customer_email))) {
-        console.log("say hi")
+        
         return res.status(422).send('unprocessable code'); 
     }else{
-        console.log(customer_email)
-       const coupon =await getRepository(Coupon).findOne({
+        const coupon =await getRepository(Coupon).findOne({
             where:{
                 "customer_email": customer_email
             }
         });
         if (coupon != null) {
-            console.log('say bye')
             return res.status(422).send('unprocessable code');
         }else{
            const voucher = await getRepository(Coupon).findOneOrFail({
@@ -129,11 +126,43 @@ export const assignCoupon = async (req: Request, res: Response): Promise<Respons
         });
             getRepository(Coupon).merge(voucher,req.body);
             voucher.assigned_at= Date()
-            console.log(voucher.assigned_at)
             const result = await getRepository(Coupon).save(voucher);
-            console.log(voucher) 
-            return res.json(result)
+            return res.status(201).json(result)
         }
     }
 };
 
+
+export const deleteCoupon = async (req: Request, res: Response): Promise<Response> =>{
+    
+    const coupon = await getRepository(Coupon).findOneOrFail({where: {"id": req.params.id }});
+    
+    if(coupon){
+        if(coupon.customer_email==null){
+        
+            const result = await getRepository(Coupon).delete(req.params.id);
+            return res.status(201).send('coupon deleted')
+            
+        }else{
+            return res.status(404).send('the code could not be deleted');
+        }
+    }else{
+        return res.status(404).send('the code could not be deleted');
+    }
+};
+
+
+export const deleteStore = async (req: Request, res: Response): Promise<Response> =>{
+    
+    const store = await getRepository(Store).findOne({where: {"id": req.params.id }});
+    
+    if(store){
+         
+        const result = await getRepository(Store).delete(req.params.id);
+        return res.status(201).send('store deleted')
+            
+    }
+    else{
+        return res.status(404).send('the code could not be deleted');
+    }
+};
