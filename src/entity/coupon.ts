@@ -1,10 +1,10 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from 'typeorm'
 
 @Entity({name: "coupons"})
 export class Coupon{
     
-    @Column()
-    assigned_at: Date;
+    @CreateDateColumn()
+    assigned_at: string;
 
     @Column({
         length: 8

@@ -1,15 +1,16 @@
 import { Router } from "express";
 const router = Router()
 
-import { getCoupon, getStores, postCoupon, postStore } from '../controllers/entity.controller'
+import { consultCoupon, getStores, createCoupon, createStore, assignCoupon } from '../controllers/entity.controller'
 
-router.get('/coupons',getCoupon);
-router.post('/coupons',postCoupon);
-/* router.patch('/coupons',);
-router.delete('/coupons/:id',); */
+router.get('/coupons',consultCoupon);
+router.post('/coupons',createCoupon);
+router.patch('/coupons',assignCoupon);
+//router.delete('/coupons/:id',);
 
 router.get('/stores',getStores);
-router.post('/stores',postStore);
+router.post('/stores',createStore);
+//router.delete('/coupons/:id',);
 
 
 
